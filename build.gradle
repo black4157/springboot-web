@@ -1,0 +1,30 @@
+buildscript{
+    ext{                                    //전역변수를 설정하겠다는 의미
+        springBootVersion = '2.1.7.RELEASE' //전역변수 springBootVersion 선언
+    }
+    repositories{       //각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지를 정함
+        mavenCentral()  //업로드에 많은 과정과 설정이 필요 -> 점점 공유가 안 되는 상황
+        jcenter()       //라이브러리 업로드 난이도 때문에 jcenter도 많이 사용, jcenter에 업로드 시 mavenCenteral에도 자동으로 업로드
+    }
+    dependencies{
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") //스프링부트 그레이들 플러그인의 2.1.7.RELEASE를 의존성으로 받겠다는 의미
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management' //스프링부트의 의존성들을 관리해 주는 플러그인으로 꼭 추가
+
+group 'com.web.test'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {      //의존성 코드는 특정 버전을 명시하면 안됨 -> 위에서 선언한 버전을 따라가게 하기 위해
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
